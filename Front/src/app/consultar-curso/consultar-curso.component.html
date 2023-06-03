@@ -1,0 +1,80 @@
+<div class="text-white">
+
+<h5>Consulta de Curso</h5>
+<p>Lista de Cursos cadastrados</p>
+
+<table class="table text-white">
+    <thead>
+        <tr>
+            <td>Descricao</td>
+            <td>Data de Inicio</td>
+            <td>Data de Termino</td>
+            <td>Numero de alunos</td>
+            <td>categoria</td>
+        </tr>
+    </thead>
+    <tbody  >
+        <tr *ngFor="let c of curso">
+            <td>{{c.descricao}}</td>
+            <td>{{c.dataInicio|date:'dd/MM/yyyy'}}</td>
+            <td>{{c.dataFim|date:'dd/MM/yyyy'}}</td>
+            <td>{{c.qtdAlunos}}</td>
+            <td>{{c.categoria.categoria}}</td>
+
+            <td>
+                <button class="btn btn-sm btn-primary mr" [routerLink]="['/editar-curso',c.idCurso]">
+                    Editar
+                </button>
+
+                &nbsp;
+
+                <button class="btn btn-sm btn-danger" (click)="excluir(c.idCurso)">Excluir</button>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="6">Total de registros: {{curso.length}} </td>
+        </tr>
+    </tfoot>
+
+    
+    
+</table>
+<div class="row mb-3">
+    <div class="col-md-1">
+        <input type="submit"  class="btn btn-success"  [routerLink]="['/cadastrar-curso']" value="Cadastrar um novo Curso">
+    </div>
+</div>
+&nbsp;
+<hr>
+<form [formGroup]="formPesquisa" (ngSubmit)="OnSubmit()">
+<div class="row mb-3">
+
+<div class="col-md-3">
+    <label for="">Descricao</label>
+    <input type="text" class="form-control" formControlName="descricao" >
+    
+</div>
+<div class="col-md-3">
+    <label for="">Data Inicio</label>
+    <input type="date" class="form-control" formControlName="dataInicio" >
+    
+</div>
+<div class="col-md-3">
+    <label for="">Data Termino</label>
+    <input type="date" class="form-control" formControlName="dataFim" >
+    
+</div>
+
+
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-1">
+        <input type="submit" [disabled]="!formPesquisa.valid" class="btn btn-success" value="Pesquisar">
+    </div>
+
+   
+</div>
+</form>
